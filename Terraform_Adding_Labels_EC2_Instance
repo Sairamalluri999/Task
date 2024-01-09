@@ -1,0 +1,21 @@
+##########################################################
+Adding labels to the AWS Ec2
+#########################################################
+
+
+provider "aws" {
+  region = "us-east-1"  # preferred region
+}
+
+resource "aws_instance" "example" {
+  count         = 2
+  ami           = "ami-0c55b159cbfafe1f0"  # Amazon Linux 2 AMI
+  instance_type = "t2.micro"               # Instance type
+
+  tags = {
+    Name  = "example-instance"
+    Label = "Instance-${count.index + 1}"
+  }
+}
+
+:: Note :: Both instances will have the same Name tag, and the Label tag will vary for each instance.
